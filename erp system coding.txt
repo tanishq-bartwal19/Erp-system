@@ -1,0 +1,206 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+// Function declarations
+void printHeader();
+void loginScreen();
+void studentInfo();
+void mainMenu();
+void viewAttendance();
+void viewProjects();
+void viewTimetable();
+void printLine(int width);
+void printBoxTop(int width);
+void printBoxBottom(int width);
+void printBoxMid(int width);
+void printBoxText(const char *text, int width);
+
+// ==================== MAIN ====================
+int main() {
+    printHeader();
+    loginScreen();
+    return 0;
+}
+
+// ============ BOX DRAWING (ASCII) =============
+void printLine(int width) {
+    int i;
+    for (i = 0; i < width; i++) printf("-");
+    printf("\n");
+}
+
+void printBoxTop(int width) {
+    printf("+");
+    int i;
+    for (i = 0; i < width - 2; i++) printf("-");
+    printf("+\n");
+}
+
+void printBoxBottom(int width) {
+    printf("+");
+    int i;
+    for (i = 0; i < width - 2; i++) printf("-");
+    printf("+\n");
+}
+
+void printBoxMid(int width) {
+    printf("+");
+    int i;
+    for (i = 0; i < width - 2; i++) printf("-");
+    printf("+\n");
+}
+
+void printBoxText(const char *text, int width) {
+    int len = strlen(text);
+    int padding = width - 4 - len;
+    int left = padding / 2;
+    int right = padding - left;
+    printf("| ");
+    int i;
+    for (i = 0; i < left; i++) printf(" ");
+    printf("%s", text);
+    for (i = 0; i < right; i++) printf(" ");
+    printf(" |\n");
+}
+
+// ================== HEADER ====================
+void printHeader() {
+    printf("\n");
+    printBoxTop(46);
+    printBoxText("ERP SYSTEM - MINI PROJECT", 46);
+    printBoxText("Tanishq | BCA-I Sem | Uttaranchal Univ", 46);
+    printBoxBottom(46);
+    printf("\n");
+}
+
+// =============== LOGIN SCREEN =================
+void loginScreen() {
+    char username[50], password[50];
+
+    printBoxTop(46);
+    printBoxText("ERP SYSTEM - LOGIN", 46);
+    printBoxText("Uttaranchal University, Dehradun", 46);
+    printBoxBottom(46);
+
+    printf("\n  Username: ");
+    scanf("%s", username);
+    printf("  Password: ");
+    scanf("%s", password);
+
+    if (strcmp(username, "tanishq") == 0 && strcmp(password, "erp123") == 0) {
+        printf("\n  >> Login Successful! Welcome, Tanishq.\n\n");
+        studentInfo();
+        mainMenu();
+    } else {
+        printf("\n  >> Invalid username or password!\n");
+        printf("  >> Please try again.\n\n");
+        loginScreen();
+    }
+}
+
+// ============= STUDENT INFO ===================
+void studentInfo() {
+    printBoxTop(46);
+    printBoxText("STUDENT INFORMATION", 46);
+    printBoxMid(46);
+    printf("|  %-14s: %-26s |\n", "Name", "Tanishq");
+    printf("|  %-14s: %-26s |\n", "Roll No", "2401020347");
+    printf("|  %-14s: %-26s |\n", "Father Name", "Mr. Rajesh");
+    printf("|  %-14s: %-26s |\n", "Mother Name", "Mrs. Sunita");
+    printf("|  %-14s: %-26s |\n", "Course", "BCA - I Semester");
+    printf("|  %-14s: %-26s |\n", "Address", "45, Rajpur Road, Dehradun");
+    printBoxBottom(46);
+    printf("\n");
+}
+
+// ================ MAIN MENU ===================
+void mainMenu() {
+    int choice;
+
+    printBoxTop(46);
+    printBoxText("MAIN MENU", 46);
+    printBoxMid(46);
+    printf("|  1. View Attendance                          |\n");
+    printf("|  2. View Project Topics                      |\n");
+    printf("|  3. View Timetable                           |\n");
+    printf("|  4. Logout                                   |\n");
+    printBoxBottom(46);
+
+    printf("\n  Enter your choice: ");
+    scanf("%d", &choice);
+    printf("\n");
+
+    switch (choice) {
+        case 1:
+            viewAttendance();
+            break;
+        case 2:
+            viewProjects();
+            break;
+        case 3:
+            viewTimetable();
+            break;
+        case 4:
+            printf("  >> Logged out successfully. Goodbye!\n\n");
+            printHeader();
+            loginScreen();
+            return;
+        default:
+            printf("  >> Invalid choice! Try again.\n\n");
+    }
+    mainMenu();
+}
+
+// ============== ATTENDANCE ====================
+void viewAttendance() {
+    printBoxTop(56);
+    printBoxText("OVERALL ATTENDANCE", 56);
+    printBoxMid(56);
+    printf("|  %-25s %8s %6s %6s  |\n", "Subject", "Attended", "Total", "%");
+    printBoxMid(56);
+    printf("|  %-25s %8d %6d %5d%%  |\n", "Mathematics-I", 28, 30, 93);
+    printf("|  %-25s %8d %6d %5d%%  |\n", "Computer Fundamentals", 25, 30, 83);
+    printf("|  %-25s %8d %6d %5d%%  |\n", "English Communication", 27, 30, 90);
+    printf("|  %-25s %8d %6d %5d%%  |\n", "Programming in C", 26, 30, 87);
+    printBoxBottom(56);
+    printf("\n");
+}
+
+// ============= PROJECT TOPICS =================
+void viewProjects() {
+    printBoxTop(46);
+    printBoxText("PROJECT TOPICS", 46);
+    printBoxMid(46);
+    printf("|  %-5s %-37s |\n", "S.No", "Title");
+    printBoxMid(46);
+    printf("|  %-5d %-37s |\n", 1, "Number Guessing Game");
+    printf("|  %-5d %-37s |\n", 2, "MP3 Player");
+    printf("|  %-5d %-37s |\n", 3, "ERP System");
+    printf("|  %-5d %-37s |\n", 4, "Password Generator");
+    printf("|  %-5d %-37s |\n", 5, "Weather Detector Software");
+    printBoxBottom(46);
+    printf("\n");
+}
+
+// =============== TIMETABLE ====================
+void viewTimetable() {
+    printBoxTop(76);
+    printBoxText("WEEKLY TIMETABLE", 76);
+    printBoxMid(76);
+    printf("|  %-14s %-11s %-11s %-11s %-11s %-11s |\n",
+           "Time", "Mon", "Tue", "Wed", "Thu", "Fri");
+    printBoxMid(76);
+    printf("|  %-14s %-11s %-11s %-11s %-11s %-11s |\n",
+           "9:00-10:00", "Maths-I", "Prog in C", "English", "Comp Fund", "Maths-I");
+    printf("|  %-14s %-11s %-11s %-11s %-11s %-11s |\n",
+           "10:00-11:00", "Comp Fund", "Maths-I", "Prog in C", "English", "Prog in C");
+    printf("|  %-14s %-11s %-11s %-11s %-11s %-11s |\n",
+           "11:00-11:15", "Break", "Break", "Break", "Break", "Break");
+    printf("|  %-14s %-11s %-11s %-11s %-11s %-11s |\n",
+           "11:15-12:15", "English", "Comp Fund", "Maths-I", "Prog in C", "Comp Fund");
+    printf("|  %-14s %-11s %-11s %-11s %-11s %-11s |\n",
+           "12:15-1:15", "Prog in C", "English", "Comp Fund", "Maths-I", "English");
+    printBoxBottom(76);
+    printf("\n");
+}
